@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block main %}
+        <section>
+            {% if entries%}
+                <h2>Recorded Birthdays</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <form id='myform'action='/' method="POST">
+                                <th>
+                                    <button class='orderby' name='ORDER_name' value='name'>
+                                        <i class="bi bi-person"></i>
+                                    </button>Name
+                                </th>
+                                <th>
+                                    <button class='orderby' name='ORDER_bday' value='bday'>
+                                        <i class="bi bi-calendar2-check-fill"></i>
+                                    </button> Birthday
+                                </th>
+                            </form>
+                            <th>Modify</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            {% else %}
+                <h2> Records of birthdays does not exist</h2>
+             {% endif %}
+                    <form id='myform'action='/' method="POST">
+                        {% for entry in entries %}
+                            <tr>
+                                <td contenteditable='plaintext-only' name='{{ entry["id"] }}'>{{ entry['name'] }}</td>
+                                <td contenteditable='plaintext-only' name='{{ entry["id"] }}'>{{ entry['birthday']}}</td>
+                                <td>
+                                    <button class="edit" name='update' type='submit' value='{{entry["id"]}}'>
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class='del' name='del_record' typze='submit' value='{{entry["id"]}}'>
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                    {% endfor %}
+                    </form>
+                </tbody>
+            </table>
+        </section>
+{% endblock %}
